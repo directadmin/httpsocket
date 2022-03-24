@@ -134,7 +134,7 @@ class HTTPSocket {
 			$this->set_login($location['user'],$location['pass']);
 
 			$request = $location['path'];
-			$content = $location['query'];
+			if ($content !== '') $content = $location['query'];
 
 
 			if ( strlen($request) < 1 )
@@ -146,7 +146,7 @@ class HTTPSocket {
 
 		$array_headers = array(
 			'User-Agent' => "HTTPSocket/$this->version",
-			'Host' => ( $this->remote_port == 80 ? $this->remote_host : "$this->remote_host:$this->remote_port" ),
+			'Host' => ( $this->remote_port == 80 ? $location['host'] : $location['host'].':'.$location['port'] ),
 			'Accept' => '*/*',
 			'Connection' => 'Close' );
 
